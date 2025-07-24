@@ -1,103 +1,87 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const materias = {
-    // Semestre 1
-    "Cálculo Diferencial": [],
-    "Álgebra Lineal": [],
-    "Física Mecánica": [],
-    "Química General": [],
-    "Introducción a la Ingeniería": [],
-    "Comunicación Oral y Escrita": [],
+const materias = [
+  // Semestre 1
+  { nombre: "Cálculo Diferencial", prerrequisitos: [] },
+  { nombre: "Álgebra y Trigonometría", prerrequisitos: [] },
+  { nombre: "Introducción a la Ingeniería", prerrequisitos: [] },
+  { nombre: "Química General", prerrequisitos: [] },
+  { nombre: "Expresión Gráfica", prerrequisitos: [] },
 
-    // Semestre 2
-    "Cálculo Integral": ["Cálculo Diferencial"],
-    "Álgebra y Trigonometría": ["Álgebra Lineal"],
-    "Física Eléctrica": ["Física Mecánica"],
-    "Química Aplicada": ["Química General"],
-    "Dibujo de Ingeniería": [],
-    "Pensamiento Sistémico": [],
+  // Semestre 2
+  { nombre: "Cálculo Integral", prerrequisitos: ["Cálculo Diferencial"] },
+  { nombre: "Física Mecánica", prerrequisitos: ["Cálculo Diferencial", "Álgebra y Trigonometría"] },
+  { nombre: "Algoritmia y Programación", prerrequisitos: [] },
+  { nombre: "Química Orgánica", prerrequisitos: ["Química General"] },
+  { nombre: "Dibujo Asistido por Computador", prerrequisitos: ["Expresión Gráfica"] },
 
-    // Semestre 3
-    "Cálculo Multivariable": ["Cálculo Integral"],
-    "Ecuaciones Diferenciales": ["Cálculo Integral"],
-    "Mecánica": ["Física Mecánica"],
-    "Estática": ["Álgebra y Trigonometría"],
-    "Programación": [],
-    "Probabilidad y Estadística": [],
+  // Semestre 3
+  { nombre: "Cálculo Multivariable", prerrequisitos: ["Cálculo Integral"] },
+  { nombre: "Estática", prerrequisitos: ["Física Mecánica"] },
+  { nombre: "Materiales de Ingeniería", prerrequisitos: ["Química Orgánica"] },
+  { nombre: "Herramientas Computacionales", prerrequisitos: [] },
+  { nombre: "Electiva de Humanidades I", prerrequisitos: [] },
 
-    // Semestre 4
-    "Dinámica": ["Estática"],
-    "Resistencia de Materiales": ["Estática"],
-    "Termodinámica": ["Cálculo Multivariable", "Física Mecánica"],
-    "Electrónica": ["Física Eléctrica"],
-    "Métodos Numéricos": ["Ecuaciones Diferenciales"],
-    "Modelado y Simulación": ["Programación"],
+  // Semestre 4
+  { nombre: "Ecuaciones Diferenciales", prerrequisitos: ["Cálculo Multivariable"] },
+  { nombre: "Dinámica", prerrequisitos: ["Estática"] },
+  { nombre: "Termodinámica", prerrequisitos: ["Física Mecánica"] },
+  { nombre: "Resistencia de Materiales", prerrequisitos: ["Estática"] },
+  { nombre: "Probabilidad y Estadística", prerrequisitos: ["Cálculo Integral"] },
 
-    // Semestre 5
-    "Análisis de Circuitos": ["Electrónica"],
-    "Mecanismos": ["Dinámica"],
-    "Transferencia de Calor": ["Termodinámica"],
-    "Materiales de Ingeniería": ["Resistencia de Materiales"],
-    "Ingeniería Económica": [],
-    "Instrumentación": ["Electrónica"],
+  // Semestre 5
+  { nombre: "Mecánica de Fluidos", prerrequisitos: ["Termodinámica", "Ecuaciones Diferenciales"] },
+  { nombre: "Análisis de Sistemas Mecánicos", prerrequisitos: ["Dinámica", "Resistencia de Materiales"] },
+  { nombre: "Electiva Profesional I", prerrequisitos: [] },
+  { nombre: "Procesos de Manufactura", prerrequisitos: ["Materiales de Ingeniería"] },
+  { nombre: "Electiva de Humanidades II", prerrequisitos: [] },
 
-    // Semestre 6
-    "Máquinas Térmicas": ["Transferencia de Calor"],
-    "Control Automático": ["Análisis de Circuitos"],
-    "Diseño Mecánico": ["Materiales de Ingeniería", "Mecanismos"],
-    "Procesos de Manufactura": ["Materiales de Ingeniería"],
-    "Legislación": [],
-    "Electiva I": [],
+  // Semestre 6
+  { nombre: "Transferencia de Calor", prerrequisitos: ["Mecánica de Fluidos"] },
+  { nombre: "Instrumentación y Control", prerrequisitos: ["Probabilidad y Estadística"] },
+  { nombre: "Sistemas Mecatrónicos", prerrequisitos: ["Análisis de Sistemas Mecánicos"] },
+  { nombre: "Electiva Profesional II", prerrequisitos: [] },
+  { nombre: "Diseño de Elementos de Máquina", prerrequisitos: ["Resistencia de Materiales"] },
 
-    // Semestre 7
-    "Máquinas Hidráulicas": ["Máquinas Térmicas"],
-    "Control de Procesos": ["Control Automático"],
-    "Diseño Asistido por Computador": ["Diseño Mecánico"],
-    "Automatización Industrial": ["Instrumentación"],
-    "Proyectos de Ingeniería I": ["Ingeniería Económica"],
-    "Electiva II": [],
+  // Semestre 7
+  { nombre: "Proyecto Integrador I", prerrequisitos: ["Sistemas Mecatrónicos", "Transferencia de Calor"] },
+  { nombre: "Automatización Industrial", prerrequisitos: ["Instrumentación y Control"] },
+  { nombre: "Electiva Profesional III", prerrequisitos: [] },
+  { nombre: "Gestión Empresarial", prerrequisitos: [] },
+  { nombre: "Ética Profesional", prerrequisitos: [] },
 
-    // Semestre 8
-    "Simulación de Sistemas": ["Modelado y Simulación"],
-    "Proyecto de Grado": ["Proyectos de Ingeniería I"],
-    "Electiva III": [],
-    "Electiva IV": []
-  };
+  // Semestre 8
+  { nombre: "Proyecto Integrador II", prerrequisitos: ["Proyecto Integrador I"] },
+  { nombre: "Electiva Profesional IV", prerrequisitos: [] },
+  { nombre: "Electiva de Humanidades III", prerrequisitos: [] },
+  { nombre: "Práctica Profesional", prerrequisitos: ["Proyecto Integrador I"] },
+  { nombre: "Trabajo de Grado", prerrequisitos: ["Proyecto Integrador II"] }
+];
 
-  const materiasDOM = document.querySelectorAll('.materia');
+const malla = document.getElementById("malla");
+const template = document.getElementById("materia-template");
 
-  function actualizarEstado() {
-    materiasDOM.forEach(m => {
-      const nombre = m.textContent.trim();
-      const requisitos = materias[nombre];
-      if (!m.classList.contains('aprobada')) {
-        const cumplidos = requisitos.every(req => {
-          return [...materiasDOM].find(el => el.textContent.trim() === req)?.classList.contains('aprobada');
-        });
+materias.forEach(m => {
+  const clone = template.content.cloneNode(true);
+  const materiaEl = clone.querySelector(".materia");
+  const nombreEl = clone.querySelector(".nombre");
 
-        if (cumplidos) {
-          m.classList.remove('bloqueada');
-          m.querySelector('.tooltip')?.remove();
-        } else {
-          m.classList.add('bloqueada');
-          if (!m.querySelector('.tooltip')) {
-            const tooltip = document.createElement('span');
-            tooltip.classList.add('tooltip');
-            tooltip.textContent = `Requiere: ${requisitos.join(', ')}`;
-            m.appendChild(tooltip);
-          }
-        }
-      }
-    });
-  }
+  materiaEl.dataset.nombre = m.nombre;
+  materiaEl.dataset.prerequisitos = m.prerrequisitos.join(",");
+  nombreEl.textContent = m.nombre;
 
-  materiasDOM.forEach(m => {
-    m.addEventListener('click', () => {
-      if (m.classList.contains('bloqueada')) return;
+  malla.appendChild(clone);
+});
 
-      m.classList.toggle('aprobada');
-      actualizarEstado();
-    });
-  });
+document.addEventListener("click", (e) => {
+  if (e.target.closest(".materia")) {
+    const materia = e.target.closest(".materia");
+    materia.classList.add("aprobada");
 
-  actualizarEstado();
+    const nombre = materia.dataset.nombre;
+    document.querySelectorAll(".materia").forEach(destino => {
+      const requisitos = destino.dataset.prerequisitos.split(",").map(r => r.trim());
+      if (requisitos.includes(nombre)) {
+        destino.classList.add("desbloqueada");
+      }
+    });
+  }
 });
