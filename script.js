@@ -133,8 +133,10 @@ function actualizarProgreso() {
   const barra = document.getElementById("progreso-barra");
   const texto = document.getElementById("progreso-texto");
 
-  barra.style.width = `${porcentaje}%`;
-  texto.textContent = `Progreso: ${porcentaje}%`;
+  if (barra && texto) {
+    barra.style.width = `${porcentaje}%`;
+    texto.textContent = `Progreso: ${porcentaje}%`;
+  }
 }
 
 renderizar(); {
