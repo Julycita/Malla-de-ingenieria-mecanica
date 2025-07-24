@@ -1,3 +1,4 @@
+// Datos de materias con estructura {nombre, prerrequisitos, semestre}
 const materias = [
   { nombre: "Seminario de Ingeniería Mecánica", requisitos: [], semestre: 1 },
   { nombre: "Dibujo Básico", requisitos: [], semestre: 1 },
@@ -78,10 +79,10 @@ function renderizar() {
       const span = clon.querySelector(".nombre");
       const tooltip = clon.querySelector(".tooltip");
       span.textContent = materia.nombre;
-
+      
       const aprobada = estadoMaterias[materia.nombre];
       const requisitosCumplidos = materia.requisitos.every(req => estadoMaterias[req]);
-
+      
       if (aprobada) {
         div.classList.add("aprobada");
       } else if (!requisitosCumplidos && materia.requisitos.length > 0) {
@@ -124,7 +125,4 @@ if (localStorage.getItem("modoOscuro") === "true") {
   document.body.classList.add("modo-oscuro");
 }
 
-
 renderizar();
- 
-
