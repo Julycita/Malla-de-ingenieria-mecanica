@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Malla Curricular - Ingeniería Mecánica</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malla Interactiva Ingeniería Mecánica</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
@@ -13,21 +15,44 @@
       <button id="modoToggle">Modo Oscuro/Claro</button>
       <button id="reiniciarBtn">Reiniciar Malla</button>
     </div>
+    <button id="modoBtn" title="Cambiar modo">🌙</button>
   </header>
-  <div id="progreso-container">
-  <div id="progreso-barra">
-    <span id="progreso-texto">Progreso: 0%</span>
-  </div>
-</div>
   <main id="malla" class="grid"></main>
 
   <template id="materia-template">
     <div class="materia">
       <span class="nombre"></span>
       <div class="tooltip"></div>
+  <main id="malla">
+    <!-- Cada columna representa un semestre -->
+    <div class="semestre" data-semestre="1">
+      <h2>Semestre 1</h2>
+      <div class="materia" data-nombre="Cálculo Diferencial">Cálculo Diferencial</div>
+      <div class="materia" data-nombre="Álgebra Lineal">Álgebra Lineal</div>
+      <div class="materia" data-nombre="Química General">Química General</div>
+      <div class="materia" data-nombre="Fundamentos de Programación">Fundamentos de Programación</div>
+    </div>
+
+    <div class="semestre" data-semestre="2">
+      <h2>Semestre 2</h2>
+      <div class="materia" data-nombre="Cálculo Integral" data-prerrequisitos="Cálculo Diferencial">Cálculo Integral</div>
+      <div class="materia" data-nombre="Física I" data-prerrequisitos="Álgebra Lineal;Cálculo Diferencial">Física I</div>
+      <div class="materia" data-nombre="Dibujo Técnico">Dibujo Técnico</div>
+      <div class="materia" data-nombre="Estática" data-prerrequisitos="Física I">Estática</div>
     </div>
   </template>
 
+    <div class="semestre" data-semestre="3">
+      <h2>Semestre 3</h2>
+      <div class="materia" data-nombre="Cálculo Vectorial" data-prerrequisitos="Cálculo Integral">Cálculo Vectorial</div>
+      <div class="materia" data-nombre="Física II" data-prerrequisitos="Física I">Física II</div>
+      <div class="materia" data-nombre="Dinámica" data-prerrequisitos="Estática">Dinámica</div>
+      <div class="materia" data-nombre="Materiales" data-prerrequisitos="Química General">Materiales</div>
+    </div>
+
+    <!-- Puedes seguir agregando más semestres aquí -->
+
+  </main>
+
   <script src="script.js"></script>
 </body>
-</html>
