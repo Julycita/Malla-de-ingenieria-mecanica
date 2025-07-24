@@ -1,3 +1,4 @@
+materias_aprobadas / materias_totales * 100
 const materias = [
   { nombre: "Seminario de Ingeniería Mecánica", requisitos: [], semestre: 1 },
   { nombre: "Dibujo Básico", requisitos: [], semestre: 1 },
