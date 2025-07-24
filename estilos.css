@@ -1,1 +1,122 @@
+/* Modo claro por defecto */
+:root {
+  --fondo: #fdf6fb;
+  --texto: #2a003f;
+  --materia: #ffe6f2;
+  --materia-aprobada: #c28fef;
+  --materia-bloqueada: #e0e0e0;
+  --tooltip-bg: #9333ea;
+  --boton-bg: #d8b4fe;
+  --boton-texto: #3b0764;
+  --fuente: 'Poppins', sans-serif;
+}
+
+body.modo-oscuro {
+  --fondo: #1c1b2f;
+  --texto: #ffffff;
+  --materia: #3b185f;
+  --materia-aprobada: #a855f7;
+  --materia-bloqueada: #555;
+  --tooltip-bg: #c084fc;
+  --boton-bg: #6b21a8;
+  --boton-texto: #fff;
+}
+
+body {
+  font-family: var(--fuente);
+  background-color: var(--fondo);
+  color: var(--texto);
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--materia-aprobada);
+  color: white;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.controles button {
+  background-color: var(--boton-bg);
+  color: var(--boton-texto);
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.controles button:hover {
+  background-color: var(--tooltip-bg);
+  color: white;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.materia {
+  background-color: var(--materia);
+  padding: 1rem;
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  text-align: center;
+  font-weight: bold;
+}
+
+.materia:hover {
+  transform: scale(1.03);
+}
+
+.materia.aprobada {
+  background-color: var(--materia-aprobada);
+  color: white;
+}
+
+.materia.bloqueada {
+  background-color: var(--materia-bloqueada);
+  color: #888;
+  cursor: not-allowed;
+}
+
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+  background-color: var(--tooltip-bg);
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 10px;
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.3s;
+  z-index: 1;
+  font-size: 0.8rem;
+  max-width: 160px;
+  pointer-events: none;
+}
+
+.materia.bloqueada:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
 
