@@ -73,3 +73,66 @@ toggleButton.addEventListener("click", () => {
   aplicarModo(nuevoModo);
   localStorage.setItem("modo", nuevoModo);
 });
+// Cargar estado guardado o iniciar vacío
+let estadoMaterias = JSON.parse(localStorage.getItem("estadoMaterias")) || {};
+
+function actualizarMaterias() {
+  document.querySelectorAll(".materia").forEach(materia => {
+    const nombre = materia.dataset.nombre;
+    const requisitos = materia.dataset.prerrequisitos?.split(";") || [];
+    const aprobada = estadoMaterias[nombre];
+
+    if (aprobada) {
+      materia.classList.add("aprobada");
+      materia.classList.remove("desbloqueada");
+      materia.style.cursor = "default";
+    } else {
+      // Verifica si todos los requisitos están aprobados
+      const desbloqueada = requisitos.every(req => estadoMaterias[req]);
+      if (requisitos.length === 0 || desbloqueada) {
+        materia.classList.add("desbloqueada");
+        materia.classList.remove("aprobada");
+      } else {
+        materia.classList.remove("desbloqueada");
+        materia.classList.remove("aprobada");
+      }
+    }
+  });
+}
+
+function guardarEstado() {
+  localStorage.setItem("estadoMaterias", JSON.stringify(estadoMaterias));
+}
+
+document.querySelectorAll(".materia").forEach(materia => {
+  materia.addEventListener("click", () => {
+    const nombre = materia.dataset.nombre;
+    const desbloqueada = materia.classList.contains("desbloqueada");
+
+    if (!desbloqueada) return;
+
+    estadoMaterias[nombre] = !estadoMaterias[nombre];
+    guardarEstado();
+    actualizarMaterias();
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  actualizarMaterias();
+
+  const modoBtn = document.getElementById("modoBtn");
+  const body = document.body;
+
+  const modoGuardado = localStorage.getItem("modo");
+  if (modoGuardado === "oscuro") {
+    body.classList.add("oscuro");
+    modoBtn.textContent = "🌞";
+  }
+
+  modoBtn.addEventListener("click", () => {
+    body.classList.toggle("oscuro");
+    const enModoOscuro = body.classList.contains("oscuro");
+    modoBtn.textContent = enModoOscuro ? "🌞" : "🌙";
+    localStorage.setItem("modo", enModoOscuro ? "oscuro" : "claro");
+  });
+});
