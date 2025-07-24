@@ -106,7 +106,7 @@ h1 {
 /* Cada semestre como columna */
 .grid > div {
   min-width: 200px;
-  flex: 1;
+  flex: 0 0 auto;
 }
 
 /* Responsive */
