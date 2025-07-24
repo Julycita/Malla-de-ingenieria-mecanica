@@ -1,10 +1,5 @@
 /* Modo claro por defecto */
 :root {
-  --bg: #f3f3ff;
-  --text: #222;
-  --materia-aprobada: #b9fbc0;
-  --materia-bloqueada: #f5f5f5;
-  --materia-desbloqueada: #d0bcff;
   --fondo: #fdf6fb;
   --texto: #2a003f;
   --materia: #ffe6f2;
@@ -16,13 +11,6 @@
   --fuente: 'Poppins', sans-serif;
 }
 
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: var(--bg);
-  color: var(--text);
-  transition: background 0.3s, color 0.3s;
-  padding: 1rem;
 body.modo-oscuro {
   --fondo: #1c1b2f;
   --texto: #ffffff;
@@ -34,12 +22,6 @@ body.modo-oscuro {
   --boton-texto: #fff;
 }
 
-body.oscuro {
-  --bg: #1e1e2f;
-  --text: #f0f0f0;
-  --materia-aprobada: #49735a;
-  --materia-bloqueada: #3a3a3a;
-  --materia-desbloqueada: #8e6dfc;
 body {
   font-family: var(--fuente);
   background-color: var(--fondo);
@@ -53,15 +35,11 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
   padding: 1rem 2rem;
   background-color: var(--materia-aprobada);
   color: white;
 }
 
-#modoBtn {
-  font-size: 1.4rem;
-  background: none;
 h1 {
   margin: 0;
   font-size: 1.8rem;
@@ -75,25 +53,16 @@ h1 {
   padding: 0.5rem 1rem;
   margin-left: 0.5rem;
   cursor: pointer;
-  border-radius: 50%;
-  padding: 0.4rem;
-  transition: background 0.3s;
   font-weight: bold;
   font-size: 1rem;
   transition: background-color 0.3s;
 }
 
-#modoBtn:hover {
-  background-color: rgba(0, 0, 0, 0.1);
 .controles button:hover {
   background-color: var(--tooltip-bg);
   color: white;
 }
 
-main {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -101,14 +70,9 @@ main {
   padding: 1.5rem;
 }
 
-.semestre {
-  background: white;
-  border-radius: 12px;
 .materia {
   background-color: var(--materia);
   padding: 1rem;
-  min-width: 250px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   border-radius: 12px;
   position: relative;
   cursor: pointer;
@@ -117,14 +81,10 @@ main {
   font-weight: bold;
 }
 
-.semestre h2 {
-  text-align: center;
-  color: #6a5acd;
 .materia:hover {
   transform: scale(1.03);
 }
 
-.materia {
 .materia.aprobada {
   background-color: var(--materia-aprobada);
   color: white;
@@ -132,18 +92,10 @@ main {
 
 .materia.bloqueada {
   background-color: var(--materia-bloqueada);
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin: 0.5rem 0;
-  padding: 0.6rem;
   color: #888;
   cursor: not-allowed;
-  transition: 0.3s;
 }
 
-.materia.desbloqueada {
-  background-color: var(--materia-desbloqueada);
-  cursor: pointer;
 .tooltip {
   visibility: hidden;
   opacity: 0;
@@ -163,9 +115,6 @@ main {
   pointer-events: none;
 }
 
-.materia.aprobada {
-  background-color: var(--materia-aprobada);
-  text-decoration: line-through;
 .materia.bloqueada:hover .tooltip {
   visibility: visible;
   opacity: 1;
