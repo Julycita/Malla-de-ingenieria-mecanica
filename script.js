@@ -125,7 +125,6 @@ if (localStorage.getItem("modoOscuro") === "true") {
 }
 
 
-renderizar() {
+renderizar();
  
-}
 
