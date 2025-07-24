@@ -1,63 +1,40 @@
 const materias = [
-  // SEMESTRE 1
-  { id: "calculo1", nombre: "Cálculo I", requisitos: [] },
-  { id: "quimica", nombre: "Química General", requisitos: [] },
-  { id: "algebra", nombre: "Álgebra Lineal", requisitos: [] },
-  { id: "introIng", nombre: "Introducción a la Ingeniería", requisitos: [] },
-  { id: "comunicacion", nombre: "Comunicación Oral y Escrita", requisitos: [] },
-  { id: "dep1", nombre: "Deportes 1", requisitos: [] },
+  // 1er semestre
+  { id: "calculo1", nombre: "Cálculo I", requisitos: [], semestre: 1 },
+  { id: "algebra", nombre: "Álgebra Lineal", requisitos: [], semestre: 1 },
+  { id: "quimica", nombre: "Química", requisitos: [], semestre: 1 },
+  { id: "introduccion", nombre: "Introducción a la Ingeniería", requisitos: [], semestre: 1 },
+  { id: "comunicacion", nombre: "Comunicación", requisitos: [], semestre: 1 },
 
-  // SEMESTRE 2
-  { id: "calculo2", nombre: "Cálculo II", requisitos: ["calculo1"] },
-  { id: "fisica1", nombre: "Física I", requisitos: ["calculo1"] },
-  { id: "dibujo", nombre: "Dibujo de Ingeniería", requisitos: [] },
-  { id: "historia", nombre: "Historia de la Ingeniería", requisitos: [] },
-  { id: "dep2", nombre: "Deportes 2", requisitos: ["dep1"] },
+  // 2do semestre
+  { id: "calculo2", nombre: "Cálculo II", requisitos: ["calculo1"], semestre: 2 },
+  { id: "fisica1", nombre: "Física I", requisitos: ["calculo1"], semestre: 2 },
+  { id: "dibujo", nombre: "Dibujo de Ingeniería", requisitos: [], semestre: 2 },
+  { id: "metrologia", nombre: "Metrología", requisitos: [], semestre: 2 },
+  { id: "programacion", nombre: "Programación", requisitos: [], semestre: 2 },
 
-  // SEMESTRE 3
-  { id: "calculo3", nombre: "Cálculo III", requisitos: ["calculo2"] },
-  { id: "fisica2", nombre: "Física II", requisitos: ["fisica1", "calculo2"] },
-  { id: "termodinamica1", nombre: "Termodinámica I", requisitos: ["fisica1"] },
-  { id: "mecanica", nombre: "Mecánica Vectorial", requisitos: ["fisica1"] },
-  { id: "programacion", nombre: "Programación", requisitos: [] },
+  // 3er semestre
+  { id: "calculo3", nombre: "Cálculo III", requisitos: ["calculo2"], semestre: 3 },
+  { id: "fisica2", nombre: "Física II", requisitos: ["fisica1", "calculo2"], semestre: 3 },
+  { id: "termodinamica", nombre: "Termodinámica", requisitos: ["fisica1"], semestre: 3 },
+  { id: "materiales", nombre: "Materiales", requisitos: ["quimica"], semestre: 3 },
+  { id: "estatica", nombre: "Estática", requisitos: ["fisica1"], semestre: 3 },
 
-  // SEMESTRE 4
-  { id: "ecuaciones", nombre: "Ecuaciones Diferenciales", requisitos: ["calculo3"] },
-  { id: "dinamica", nombre: "Dinámica", requisitos: ["mecanica"] },
-  { id: "estatica", nombre: "Estática", requisitos: ["mecanica"] },
-  { id: "resistencia", nombre: "Resistencia de Materiales", requisitos: ["estatica"] },
-  { id: "electiva1", nombre: "Electiva I", requisitos: [] },
+  // 4to semestre
+  { id: "ecuaciones", nombre: "Ecuaciones Diferenciales", requisitos: ["calculo3"], semestre: 4 },
+  { id: "dinamica", nombre: "Dinámica", requisitos: ["estatica"], semestre: 4 },
+  { id: "mecanica", nombre: "Mecánica de Materiales", requisitos: ["estatica"], semestre: 4 },
+  { id: "maquinas", nombre: "Máquinas Eléctricas", requisitos: ["fisica2"], semestre: 4 },
+  { id: "mecanismos", nombre: "Mecanismos", requisitos: ["dinamica"], semestre: 4 },
 
-  // SEMESTRE 5
-  { id: "termodinamica2", nombre: "Termodinámica II", requisitos: ["termodinamica1"] },
-  { id: "materiales", nombre: "Ciencia de los Materiales", requisitos: ["quimica"] },
-  { id: "flujo", nombre: "Mecánica de Fluidos", requisitos: ["fisica2", "calculo3"] },
-  { id: "manufactura", nombre: "Procesos de Manufactura", requisitos: ["materiales"] },
-  { id: "probabilidad", nombre: "Probabilidad y Estadística", requisitos: ["calculo2"] },
+  // 5to semestre
+  { id: "electiva1", nombre: "Electiva I", requisitos: [], semestre: 5 },
+  { id: "resistencia", nombre: "Resistencia de Materiales", requisitos: ["mecanica"], semestre: 5 },
+  { id: "control", nombre: "Control Automático", requisitos: ["ecuaciones"], semestre: 5 },
+  { id: "procesos", nombre: "Procesos de Manufactura", requisitos: ["materiales"], semestre: 5 },
+  { id: "fluidos", nombre: "Mecánica de Fluidos", requisitos: ["fisica2"], semestre: 5 },
 
-  // SEMESTRE 6
-  { id: "maquinas1", nombre: "Máquinas Térmicas I", requisitos: ["termodinamica2"] },
-  { id: "control", nombre: "Automatización y Control", requisitos: ["fisica2", "programacion"] },
-  { id: "diseno", nombre: "Diseño de Elementos de Máquinas", requisitos: ["resistencia"] },
-  { id: "electiva2", nombre: "Electiva II", requisitos: ["electiva1"] },
-  { id: "gestion", nombre: "Gestión Empresarial", requisitos: [] },
-
-  // SEMESTRE 7
-  { id: "maquinas2", nombre: "Máquinas Térmicas II", requisitos: ["maquinas1"] },
-  { id: "sistemasFluidos", nombre: "Sistemas de Fluidos", requisitos: ["flujo"] },
-  { id: "vibraciones", nombre: "Vibraciones Mecánicas", requisitos: ["dinamica"] },
-  { id: "electiva3", nombre: "Electiva III", requisitos: ["electiva2"] },
-  { id: "proyecto1", nombre: "Proyecto I", requisitos: ["gestion"] },
-
-  // SEMESTRE 8
-  { id: "transferencia", nombre: "Transferencia de Calor", requisitos: ["flujo", "termodinamica2"] },
-  { id: "sistemasMecanicos", nombre: "Sistemas Mecánicos", requisitos: ["diseno", "vibraciones"] },
-  { id: "electiva4", nombre: "Electiva IV", requisitos: ["electiva3"] },
-  { id: "proyecto2", nombre: "Proyecto II", requisitos: ["proyecto1"] },
-
-  // SEMESTRE 9
-  { id: "electiva5", nombre: "Electiva V", requisitos: ["electiva4"] },
-  { id: "trabajoGrado", nombre: "Trabajo de Grado", requisitos: ["proyecto2"] }
+  // Puedes seguir completando 6to a 10mo igual...
 ];
 
 const container = document.querySelector(".grid");
@@ -67,27 +44,45 @@ function cargarMalla() {
   container.innerHTML = "";
   const progreso = JSON.parse(localStorage.getItem("malla")) || [];
 
+  const semestres = {};
+
   materias.forEach(m => {
-    const clone = template.content.cloneNode(true);
-    const div = clone.querySelector(".materia");
-    div.dataset.id = m.id;
-    div.querySelector(".nombre").textContent = m.nombre;
-
-    if (progreso.includes(m.id)) {
-      div.classList.add("aprobada");
-    } else if (!m.requisitos.length || m.requisitos.every(id => progreso.includes(id))) {
-      // habilitado
-    } else {
-      div.classList.add("bloqueada");
-      const tooltip = div.querySelector(".tooltip");
-      tooltip.textContent = "Requiere: " + m.requisitos.map(id => {
-        const mat = materias.find(mat => mat.id === id);
-        return mat?.nombre || id;
-      }).join(", ");
-    }
-
-    container.appendChild(clone);
+    if (!semestres[m.semestre]) semestres[m.semestre] = [];
+    semestres[m.semestre].push(m);
   });
+
+  for (const semestre in semestres) {
+    const columna = document.createElement("div");
+    columna.className = "columna-semestre";
+    const titulo = document.createElement("h3");
+    titulo.textContent = `Semestre ${semestre}`;
+    columna.appendChild(titulo);
+
+    semestres[semestre].forEach(m => {
+      const clone = template.content.cloneNode(true);
+      const div = clone.querySelector(".materia");
+      div.dataset.id = m.id;
+      div.querySelector(".nombre").textContent = m.nombre;
+
+      if (progreso.includes(m.id)) {
+        div.classList.add("aprobada");
+      } else if (!m.requisitos.length || m.requisitos.every(id => progreso.includes(id))) {
+        // materia desbloqueada
+      } else {
+        div.classList.add("bloqueada");
+        const tooltip = div.querySelector(".tooltip");
+        tooltip.textContent = "Requiere: " + m.requisitos.map(id => {
+          const mat = materias.find(mat => mat.id === id);
+          return mat?.nombre || id;
+        }).join(", ");
+      }
+
+      div.onclick = () => marcarMateria(div);
+      columna.appendChild(clone);
+    });
+
+    container.appendChild(columna);
+  }
 }
 
 function marcarMateria(el) {
@@ -105,7 +100,7 @@ function marcarMateria(el) {
   }
 
   localStorage.setItem("malla", JSON.stringify(progreso));
-  cargarMalla();
+  cargarMalla(); // Recargar para actualizar el estado
 }
 
 function reiniciarMalla() {
@@ -118,4 +113,4 @@ function toggleModo() {
 }
 
 cargarMalla();
-   
+  
