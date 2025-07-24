@@ -1,4 +1,3 @@
-// Datos de materias con estructura {nombre, prerrequisitos, semestre}
 const materias = [
   { nombre: "Seminario de Ingeniería Mecánica", requisitos: [], semestre: 1 },
   { nombre: "Dibujo Básico", requisitos: [], semestre: 1 },
@@ -126,4 +125,3 @@ if (localStorage.getItem("modoOscuro") === "true") {
 }
 
 renderizar();
-        
