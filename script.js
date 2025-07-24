@@ -96,7 +96,7 @@ function renderizarMalla() {
           aprobadas.add(materia.nombre);
         }
         localStorage.setItem("materiasAprobadas", JSON.stringify([...aprobadas]));
-        renderizarMalla();
+        renderizar();
       });
 
       columna.appendChild(divMateria);
@@ -115,7 +115,7 @@ document.getElementById("reiniciarBtn").addEventListener("click", () => {
   if (confirm("¿Seguro que quieres reiniciar la malla?")) {
     localStorage.removeItem("materiasAprobadas");
     aprobadas.clear();
-    renderizarMalla();
+    renderizar();
   }
 });
 
@@ -123,4 +123,4 @@ if (localStorage.getItem("modoOscuro") === "true") {
   document.body.classList.add("oscuro");
 }
 
-renderizarMalla();
+renderizar();
