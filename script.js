@@ -124,4 +124,17 @@ if (localStorage.getItem("modoOscuro") === "true") {
   document.body.classList.add("modo-oscuro");
 }
 
+function actualizarProgreso() {
+  const total = materias.length;
+  const aprobadas = Object.keys(estadoMaterias).filter(nombre => estadoMaterias[nombre]).length;
+  const porcentaje = Math.round((aprobadas / total) * 100);
+
+  const barra = document.getElementById("progreso-barra");
+  const texto = document.getElementById("progreso-texto");
+
+  barra.style.width = `${porcentaje}%`;
+  texto.textContent = `Progreso: ${porcentaje}%`;
+}
+
 renderizar();
+actualizarProgreso();
