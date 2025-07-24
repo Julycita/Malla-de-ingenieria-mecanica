@@ -137,5 +137,7 @@ function actualizarProgreso() {
   texto.textContent = `Progreso: ${porcentaje}%`;
 }
 
-renderizar();
-actualizarProgreso();
+renderizar(); {
+  actualizarProgreso();
+}
+
