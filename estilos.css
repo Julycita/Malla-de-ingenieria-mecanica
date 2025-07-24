@@ -70,6 +70,7 @@ h1 {
   padding: 1.5rem;
 }
 
+
 #progreso-container {
   width: 100%;
   background-color: #e5e7eb;
@@ -80,19 +81,13 @@ h1 {
   height: 24px;
   background-color: var(--materia-aprobada);
   width: 0%;
+  color: white;
+  text-align: center;
   border-radius: 6px;
   transition: width 0.4s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  font-weight: bold;
 }
 
-#progreso-texto {
-  color: white;
-  font-weight: bold;
-  font-size: 0.9rem;
-}
 /* Semestres en columnas horizontales */
 .grid {
   display: flex;
@@ -106,7 +101,35 @@ h1 {
 /* Cada semestre como columna */
 .grid > div {
   min-width: 200px;
-  flex: 0 0 auto;
+  flex: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .controles {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .controles button {
+    margin: 0.3rem 0.3rem 0 0;
+  }
+
+  .grid {
+    flex-direction: column;
+  }
+
+  .grid > div {
+    min-width: unset;
+  }
 }
 
 /* Responsive */
