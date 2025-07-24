@@ -1,99 +1,103 @@
-const materias = {
-  "1": [
-    { nombre: "Cálculo I", id: "calculo1", requisitos: [] },
-    { nombre: "Álgebra Lineal", id: "algebra", requisitos: [] },
-    { nombre: "Química", id: "quimica", requisitos: [] },
-    { nombre: "Introducción a la Ingeniería", id: "introIng", requisitos: [] },
-    { nombre: "Comunicación Escrita", id: "comunicacion", requisitos: [] }
-  ],
-  "2": [
-    { nombre: "Cálculo II", id: "calculo2", requisitos: ["calculo1"] },
-    { nombre: "Física I", id: "fisica1", requisitos: ["calculo1"] },
-    { nombre: "Estática", id: "estatica", requisitos: ["algebra"] },
-    { nombre: "Dibujo Técnico", id: "dibujo", requisitos: [] },
-    { nombre: "Programación", id: "programacion", requisitos: [] }
-  ],
-  // Puedes seguir agregando más semestres aquí
-};
+document.addEventListener('DOMContentLoaded', () => {
+  const materias = {
+    // Semestre 1
+    "Cálculo Diferencial": [],
+    "Álgebra Lineal": [],
+    "Física Mecánica": [],
+    "Química General": [],
+    "Introducción a la Ingeniería": [],
+    "Comunicación Oral y Escrita": [],
 
-const malla = document.getElementById("malla");
-const template = document.getElementById("materia-template");
-const modoToggle = document.getElementById("modoToggle");
-const reiniciarBtn = document.getElementById("reiniciarBtn");
+    // Semestre 2
+    "Cálculo Integral": ["Cálculo Diferencial"],
+    "Álgebra y Trigonometría": ["Álgebra Lineal"],
+    "Física Eléctrica": ["Física Mecánica"],
+    "Química Aplicada": ["Química General"],
+    "Dibujo de Ingeniería": [],
+    "Pensamiento Sistémico": [],
 
-let estadoMaterias = JSON.parse(localStorage.getItem("estadoMaterias")) || {};
+    // Semestre 3
+    "Cálculo Multivariable": ["Cálculo Integral"],
+    "Ecuaciones Diferenciales": ["Cálculo Integral"],
+    "Mecánica": ["Física Mecánica"],
+    "Estática": ["Álgebra y Trigonometría"],
+    "Programación": [],
+    "Probabilidad y Estadística": [],
 
-function crearMalla() {
-  malla.innerHTML = "";
+    // Semestre 4
+    "Dinámica": ["Estática"],
+    "Resistencia de Materiales": ["Estática"],
+    "Termodinámica": ["Cálculo Multivariable", "Física Mecánica"],
+    "Electrónica": ["Física Eléctrica"],
+    "Métodos Numéricos": ["Ecuaciones Diferenciales"],
+    "Modelado y Simulación": ["Programación"],
 
-  for (const semestre in materias) {
-    const columna = document.createElement("div");
-    columna.classList.add("columna");
-    const titulo = document.createElement("h2");
-    titulo.textContent = `Semestre ${semestre}`;
-    columna.appendChild(titulo);
+    // Semestre 5
+    "Análisis de Circuitos": ["Electrónica"],
+    "Mecanismos": ["Dinámica"],
+    "Transferencia de Calor": ["Termodinámica"],
+    "Materiales de Ingeniería": ["Resistencia de Materiales"],
+    "Ingeniería Económica": [],
+    "Instrumentación": ["Electrónica"],
 
-    materias[semestre].forEach(materia => {
-      const clon = template.content.cloneNode(true);
-      const divMateria = clon.querySelector(".materia");
-      const nombreSpan = clon.querySelector(".nombre");
-      const tooltip = clon.querySelector(".tooltip");
+    // Semestre 6
+    "Máquinas Térmicas": ["Transferencia de Calor"],
+    "Control Automático": ["Análisis de Circuitos"],
+    "Diseño Mecánico": ["Materiales de Ingeniería", "Mecanismos"],
+    "Procesos de Manufactura": ["Materiales de Ingeniería"],
+    "Legislación": [],
+    "Electiva I": [],
 
-      divMateria.dataset.id = materia.id;
-      nombreSpan.textContent = materia.nombre;
-      tooltip.textContent = materia.requisitos.length
-        ? `Requiere: ${materia.requisitos.map(id => buscarNombreMateria(id)).join(", ")}`
-        : "Sin prerrequisitos";
+    // Semestre 7
+    "Máquinas Hidráulicas": ["Máquinas Térmicas"],
+    "Control de Procesos": ["Control Automático"],
+    "Diseño Asistido por Computador": ["Diseño Mecánico"],
+    "Automatización Industrial": ["Instrumentación"],
+    "Proyectos de Ingeniería I": ["Ingeniería Económica"],
+    "Electiva II": [],
 
-      if (estadoMaterias[materia.id]) {
-        divMateria.classList.add("aprobada");
-      }
+    // Semestre 8
+    "Simulación de Sistemas": ["Modelado y Simulación"],
+    "Proyecto de Grado": ["Proyectos de Ingeniería I"],
+    "Electiva III": [],
+    "Electiva IV": []
+  };
 
-      if (puedeActivarse(materia)) {
-        divMateria.classList.add("activa");
-      }
+  const materiasDOM = document.querySelectorAll('.materia');
 
-      divMateria.addEventListener("click", () => {
-        if (!puedeActivarse(materia)) return;
+  function actualizarEstado() {
+    materiasDOM.forEach(m => {
+      const nombre = m.textContent.trim();
+      const requisitos = materias[nombre];
+      if (!m.classList.contains('aprobada')) {
+        const cumplidos = requisitos.every(req => {
+          return [...materiasDOM].find(el => el.textContent.trim() === req)?.classList.contains('aprobada');
+        });
 
-        estadoMaterias[materia.id] = !estadoMaterias[materia.id];
-        localStorage.setItem("estadoMaterias", JSON.stringify(estadoMaterias));
-        crearMalla();
-      });
+        if (cumplidos) {
+          m.classList.remove('bloqueada');
+          m.querySelector('.tooltip')?.remove();
+        } else {
+          m.classList.add('bloqueada');
+          if (!m.querySelector('.tooltip')) {
+            const tooltip = document.createElement('span');
+            tooltip.classList.add('tooltip');
+            tooltip.textContent = `Requiere: ${requisitos.join(', ')}`;
+            m.appendChild(tooltip);
+          }
+        }
+      }
+    });
+  }
 
-      columna.appendChild(clon);
-    });
+  materiasDOM.forEach(m => {
+    m.addEventListener('click', () => {
+      if (m.classList.contains('bloqueada')) return;
 
-    malla.appendChild(columna);
-  }
-}
+      m.classList.toggle('aprobada');
+      actualizarEstado();
+    });
+  });
 
-function puedeActivarse(materia) {
-  return materia.requisitos.every(req => estadoMaterias[req]);
-}
-
-function buscarNombreMateria(id) {
-  for (const semestre in materias) {
-    for (const mat of materias[semestre]) {
-      if (mat.id === id) return mat.nombre;
-    }
-  }
-  return id;
-}
-
-modoToggle.addEventListener("click", () => {
-  document.body.classList.toggle("oscuro");
-  localStorage.setItem("modoOscuro", document.body.classList.contains("oscuro"));
+  actualizarEstado();
 });
-
-reiniciarBtn.addEventListener("click", () => {
-  localStorage.removeItem("estadoMaterias");
-  estadoMaterias = {};
-  crearMalla();
-});
-
-if (localStorage.getItem("modoOscuro") === "true") {
-  document.body.classList.add("oscuro");
-}
-
-crearMalla();
