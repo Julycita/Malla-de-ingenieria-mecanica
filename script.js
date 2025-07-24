@@ -133,58 +133,12 @@ function actualizarProgreso() {
   const barra = document.getElementById("progreso-barra");
   const texto = document.getElementById("progreso-texto");
 
-  if (barra && texto) {
-    barra.style.width = `${porcentaje}%`;
-    texto.textContent = `Progreso: ${porcentaje}%`;
-  }
+  barra.style.width = `${porcentaje}%`;
+  texto.textContent = `Progreso: ${porcentaje}%`;
 }
 
-function renderizar() {
-  malla.innerHTML = "";
-
-  const porSemestre = {};
-  materias.forEach(m => {
-    porSemestre[m.semestre] ||= [];
-    porSemestre[m.semestre].push(m);
-  });
-
-  Object.keys(porSemestre).sort((a, b) => a - b).forEach(sem => {
-    const columna = document.createElement("div");
-    const titulo = document.createElement("h3");
-    titulo.textContent = `Semestre ${sem}`;
-    columna.appendChild(titulo);
-
-    porSemestre[sem].forEach(materia => {
-      const clon = template.content.cloneNode(true);
-      const div = clon.querySelector(".materia");
-      const span = clon.querySelector(".nombre");
-      const tooltip = clon.querySelector(".tooltip");
-
-      span.textContent = materia.nombre;
-
-      const aprobada = estadoMaterias[materia.nombre];
-      const requisitosCumplidos = materia.requisitos.every(req => estadoMaterias[req]);
-
-      if (aprobada) {
-        div.classList.add("aprobada");
-      } else if (!requisitosCumplidos && materia.requisitos.length > 0) {
-        div.classList.add("bloqueada");
-        tooltip.textContent = `Faltan: ${materia.requisitos.filter(req => !estadoMaterias[req]).join(", ")}`;
-      }
-
-      div.addEventListener("click", () => {
-        if (div.classList.contains("bloqueada")) return;
-        estadoMaterias[materia.nombre] = !estadoMaterias[materia.nombre];
-        guardarEstado();
-        renderizar();
-      });
-
-      columna.appendChild(clon);
-    });
-
-    malla.appendChild(columna);
-  });
-
+renderizar() {
+ 
   actualizarProgreso(); // Muy importante que esté aquí
 }
 
