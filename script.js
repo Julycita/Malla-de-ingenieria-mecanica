@@ -1,4 +1,3 @@
-materias_aprobadas / materias_totales * 100
 const materias = [
   { nombre: "Seminario de Ingeniería Mecánica", requisitos: [], semestre: 1 },
   { nombre: "Dibujo Básico", requisitos: [], semestre: 1 },
@@ -79,10 +78,10 @@ function renderizar() {
       const span = clon.querySelector(".nombre");
       const tooltip = clon.querySelector(".tooltip");
       span.textContent = materia.nombre;
-      
+
       const aprobada = estadoMaterias[materia.nombre];
       const requisitosCumplidos = materia.requisitos.every(req => estadoMaterias[req]);
-      
+
       if (aprobada) {
         div.classList.add("aprobada");
       } else if (!requisitosCumplidos && materia.requisitos.length > 0) {
@@ -125,20 +124,8 @@ if (localStorage.getItem("modoOscuro") === "true") {
   document.body.classList.add("modo-oscuro");
 }
 
-function actualizarProgreso() {
-  const total = materias.length;
-  const aprobadas = Object.keys(estadoMaterias).filter(nombre => estadoMaterias[nombre]).length;
-  const porcentaje = Math.round((aprobadas / total) * 100);
-
-  const barra = document.getElementById("progreso-barra");
-  const texto = document.getElementById("progreso-texto");
-
-  barra.style.width = `${porcentaje}%`;
-  texto.textContent = `Progreso: ${porcentaje}%`;
-}
 
 renderizar() {
  
-  actualizarProgreso(); // Muy importante que esté aquí
 }
 
