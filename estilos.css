@@ -80,13 +80,19 @@ h1 {
   height: 24px;
   background-color: var(--materia-aprobada);
   width: 0%;
-  color: white;
-  text-align: center;
   border-radius: 6px;
   transition: width 0.4s ease;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
+#progreso-texto {
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
 /* Semestres en columnas horizontales */
 .grid {
   display: flex;
